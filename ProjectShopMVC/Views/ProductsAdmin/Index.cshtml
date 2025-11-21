@@ -1,0 +1,27 @@
+﻿@model IEnumerable<ProjectShopMVC.Models.Product>
+@{
+    ViewData["Title"] = "Quản lý sản phẩm";
+}
+<h3>Quản lý sản phẩm</h3>
+<p><a class="btn btn-primary" asp-action="Create">Thêm sản phẩm</a></p>
+<table class="table">
+    <thead><tr><th>ID</th><th>Tên</th><th>Danh m?c</th><th>Giá</th><th>Thao tác</th></tr></thead>
+    <tbody>
+        @foreach(var p in Model)
+        {
+            <tr>
+                <td>@p.Id</td>
+                <td>@p.Name</td>
+                <td>@p.Category?.Name</td>
+                <td>@p.Price.ToString("C")</td>
+                <td>
+                    <a class="btn btn-sm btn-secondary" asp-action="Edit" asp-route-id="@p.Id">Sửa</a>
+                    <form asp-action="Delete" method="post" style="display:inline-block" onsubmit="return confirm('Xóa sản phẩm?');">
+                        <input type="hidden" name="id" value="@p.Id" />
+                        <button class="btn btn-sm btn-danger">Xóa</button>
+                    </form>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

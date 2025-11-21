@@ -1,0 +1,46 @@
+﻿@model IEnumerable<ProjectShopMVC.Models.Product>
+@{
+    ViewData["Title"] = "Sản phẩm";
+}
+<div class="row">
+    <div class="col-md-3">
+        <h5>Danh m?c</h5>
+        <ul class="list-group">
+            <li class="list-group-item"><a asp-controller="Products" asp-action="Index">T?t c?</a></li>
+            @foreach (var c in ViewData["Categories"] as IEnumerable<ProjectShopMVC.Models.Category> ?? Enumerable.Empty<ProjectShopMVC.Models.Category>())
+            {
+                <li class="list-group-item"><a asp-controller="Products" asp-action="Index" asp-route-categoryId="@c.Id">@c.Name</a></li>
+            }
+        </ul>
+    </div>
+    <div class="col-md-9">
+        <div class="row">
+            @foreach (var p in Model)
+            {
+                <div class="col-md-4 mb-4">
+                    <div class="card h-100">
+                        <img src="@(p.ImageUrl ?? "/images/no-image.png")" class="card-img-top" alt="@p.Name" style="height:200px;object-fit:cover;" />
+                        <div class="card-body d-flex flex-column">
+                            <h5 class="card-title">@p.Name</h5>
+                            <p class="card-text text-muted mb-2">@p.Category?.Name</p>
+                            <p class="card-text fw-bold mb-2">@p.Price.ToString("C")</p>
+                            <div class="mt-auto">
+                                <a class="btn btn-sm btn-outline-primary" asp-action="Details" asp-route-id="@p.Id">Xem</a>
+                                <button class="btn btn-sm btn-primary ms-2" onclick="addToCart(@p.Id)">Thêm vào gi?</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        function addToCart(id) {
+            fetch('/ShoppingCart/AddToCart', { method: 'POST', headers: { 'Content-Type': 'application/x-www-form-urlencoded' }, body: 'id=' + id + '&quantity=1' })
+                .then(r => r.json()).then(d => { if (d.Success) { alert('?ã thêm vào gi? hàng'); document.getElementById('cart-count').textContent = d.Count; } else { alert(d.msg || 'L?i'); } });
+        }
+    </script>
+}

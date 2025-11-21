@@ -1,0 +1,33 @@
+html { font-size: 14px; }
+
+@media (min-width: 768px) { html { font-size: 16px; } }
+
+.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus { box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb; }
+
+html { position: relative; min-height: 100%; }
+body { margin-bottom: 60px; }
+
+/* Header */
+.top-bar { background: #f1f3f4; color: #111; font-size: .95rem; }
+.main-header { background: #fff; }
+.main-nav .nav-link { color: #111; font-weight:700; margin-right:1.25rem; padding: .25rem .5rem; }
+.search-input { width: 300px; border-radius: 2px 0 0 2px; }
+.btn-search { background: transparent; border: 1px solid #ddd; border-left: none; }
+.header-actions a { color: #111; text-decoration: none; }
+.cart-badge { position: absolute; top: -6px; right: -10px; font-size: .7rem; }
+
+/* Footer */
+.site-footer { background: #000; color: #fff; }
+.site-footer .footer-title { font-weight: 700; color: #fff; margin-bottom: 1rem; }
+.site-footer .footer-link { color: #ddd; display:block; margin-bottom: .6rem; text-decoration:none; }
+.site-footer .footer-link:hover { color: #fff; text-decoration:underline; }
+.site-footer .footer-top { padding-bottom: 1.5rem; }
+.site-footer hr { border-top-color: #222; }
+.footer-bottom { font-size: .9rem; }
+.footer-bottom-link { color: #ddd; margin-right: .75rem; }
+.footer-sep { color: #333; margin: 0 .5rem; }
+
+@media (max-width: 767px) {
+    .main-nav { display: none; }
+    .search-input { width: 120px; }
+}

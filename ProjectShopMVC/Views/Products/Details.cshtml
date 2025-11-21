@@ -1,0 +1,29 @@
+﻿@model ProjectShopMVC.Models.Product
+@{
+    ViewData["Title"] = Model.Name;
+}
+<div class="row">
+    <div class="col-md-6">
+        <img src="@(Model.ImageUrl ?? "/images/no-image.png")" class="img-fluid" alt="@Model.Name" />
+    </div>
+    <div class="col-md-6">
+        <h2>@Model.Name</h2>
+        <p class="text-muted">@Model.Category?.Name</p>
+        <p class="fw-bold">@Model.Price.ToString("C")</p>
+        <p>@Model.Description</p>
+        <div class="d-flex">
+            <input id="qty" type="number" class="form-control me-2" value="1" min="1" />
+            <button class="btn btn-primary" onclick="addToCart(@Model.Id)">Thêm vào giỏ</button>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        function addToCart(id) {
+            var q = document.getElementById('qty').value || 1;
+            fetch('/ShoppingCart/AddToCart', { method: 'POST', headers: { 'Content-Type': 'application/x-www-form-urlencoded' }, body: 'id=' + id + '&quantity=' + q })
+                .then(r => r.json()).then(d => { if (d.Success) { alert('Đã thêm vào giỏ hàng'); document.getElementById('cart-count').textContent = d.Count; } else { alert(d.msg || 'Lỗi'); } });
+        }
+    </script>
+}

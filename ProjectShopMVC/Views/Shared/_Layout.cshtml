@@ -1,0 +1,145 @@
+﻿@using ProjectShopMVC.Data
+@using ProjectShopMVC.Models
+@inject ApplicationDbContext Db
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - ProjectShopMVC</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+</head>
+<body>
+    <!-- Top announcement bar -->
+    <div class="top-bar text-center py-2">
+        <div class="container">
+            <strong>TÔN VINH DI SẢN VIỆT NAM - MIGRATION PROMO MESSAGE</strong>
+        </div>
+    </div>
+
+    <!-- Main header -->
+    <header class="main-header border-bottom">
+        <div class="container d-flex align-items-center py-3">
+            <div class="logo me-4">
+                <a asp-controller="Home" asp-action="Index" class="d-inline-block">
+                    <img src="~/images/logo.png" alt="ProjectShop" style="height:36px;" />
+                </a>
+            </div>
+
+            <nav class="main-nav d-none d-md-flex me-auto">
+                <a class="nav-link" asp-controller="Products" asp-action="Index" asp-route-categoryId="1">GIÀY</a>
+                <a class="nav-link" asp-controller="Products" asp-action="Index" asp-route-categoryId="2">NAM</a>
+                <a class="nav-link" asp-controller="Products" asp-action="Index" asp-route-categoryId="3">NỮ</a>
+                <a class="nav-link" asp-controller="Products" asp-action="Index">TRẺ EM</a>
+                <a class="nav-link" asp-controller="Products" asp-action="Index">THỂ THAO</a>
+                <a class="nav-link" asp-controller="Products" asp-action="Index">CÁC NHÃN HIỆU</a>
+            </nav>
+
+            <div class="search-area ms-3 me-3">
+                <form asp-controller="Products" asp-action="Index" method="get" class="d-flex">
+                    <input name="q" class="form-control search-input" placeholder="Tìm kiếm" />
+                    <button class="btn btn-search" type="submit">🔍</button>
+                </form>
+            </div>
+
+            <div class="header-actions d-flex align-items-center">
+                <a class="me-3 text-muted" asp-controller="Account" asp-action="Index">Đăng nhập</a>
+                <a class="me-3 position-relative" asp-controller="Cart" asp-action="Index">🛒<span id="cart-count" class="badge bg-success cart-badge">0</span></a>
+            </div>
+        </div>
+    </header>
+
+    <main class="container py-4">
+        @RenderBody()
+    </main>
+
+    <!-- Footer -->
+    <footer class="site-footer bg-dark text-white pt-5">
+        <div class="container">
+            <div class="row footer-top">
+                <div class="col-6 col-md-2 mb-4">
+                    <h6 class="footer-title">SẢN PHẨM</h6>
+                    <ul class="list-unstyled">
+                        <li><a asp-controller="Products" asp-action="Index" class="footer-link">Giày</a></li>
+                        <li><a asp-controller="Products" asp-action="Index" class="footer-link">Quần áo</a></li>
+                        <li><a asp-controller="Products" asp-action="Index" class="footer-link">Phụ kiện</a></li>
+                        <li><a asp-controller="Products" asp-action="Index" class="footer-link">Hàng mới về</a></li>
+                    </ul>
+                </div>
+                <div class="col-6 col-md-2 mb-4">
+                    <h6 class="footer-title">THỂ THAO</h6>
+                    <ul class="list-unstyled">
+                        <li><a class="footer-link">Chạy</a></li>
+                        <li><a class="footer-link">Đánh gôn</a></li>
+                        <li><a class="footer-link">Gym & Training</a></li>
+                        <li><a class="footer-link">Bóng đá</a></li>
+                    </ul>
+                </div>
+                <div class="col-6 col-md-2 mb-4">
+                    <h6 class="footer-title">BỘ SƯU TẬP</h6>
+                    <ul class="list-unstyled">
+                        <li><a class="footer-link">Ultra Boost</a></li>
+                        <li><a class="footer-link">Predator</a></li>
+                        <li><a class="footer-link">Stan Smith</a></li>
+                    </ul>
+                </div>
+                <div class="col-6 col-md-2 mb-4">
+                    <h6 class="footer-title">THÔNG TIN VỀ CÔNG TY</h6>
+                    <ul class="list-unstyled">
+                        <li><a class="footer-link">Giới thiệu</a></li>
+                        <li><a class="footer-link">Cơ hội nghề nghiệp</a></li>
+                        <li><a class="footer-link">Tin tức</a></li>
+                    </ul>
+                </div>
+                <div class="col-6 col-md-2 mb-4">
+                    <h6 class="footer-title">HỖ TRỢ</h6>
+                    <ul class="list-unstyled">
+                        <li><a class="footer-link">Trợ giúp</a></li>
+                        <li><a class="footer-link">Thanh toán</a></li>
+                        <li><a class="footer-link">Giao hàng</a></li>
+                        <li><a class="footer-link">Trả hàng & Hoàn tiền</a></li>
+                    </ul>
+                </div>
+                <div class="col-6 col-md-2 mb-4 text-center">
+                    <h6 class="footer-title">THEO DÕI CHÚNG TÔI</h6>
+                    <div class="social-icons d-flex flex-column align-items-center mt-3">
+                        <a class="social-icon mb-2" href="#">&#x1F426;</a>
+                        <a class="social-icon mb-2" href="#">&#x1F4F7;</a>
+                        <a class="social-icon mb-2" href="#">&#x25B6;</a>
+                    </div>
+                </div>
+            </div>
+
+            <hr class="border-secondary" />
+
+            <div class="footer-bottom d-flex flex-column flex-md-row justify-content-between align-items-center py-3">
+                <div class="mb-2 mb-md-0">
+                    <a class="footer-bottom-link">Cài Đặt Cookie</a>
+                    <span class="footer-sep">|</span>
+                    <a class="footer-bottom-link">Chính sách Bảo mật</a>
+                    <span class="footer-sep">|</span>
+                    <a class="footer-bottom-link">Điều Khoản và Điều Kiện</a>
+                </div>
+                <div>
+                    &copy; 2025 ProjectShop
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        function refreshCartCount() {
+            fetch('/ShoppingCart/ShowCount')
+                .then(r => r.json())
+                .then(d => { var n = d.count ?? d.Count ?? 0; var el = document.getElementById('cart-count'); if(el) el.textContent = n; })
+                .catch(() => { });
+        }
+        document.addEventListener('DOMContentLoaded', function() { refreshCartCount(); });
+    </script>
+
+    @RenderSection("Scripts", required: false)
+</body>
+</html>
