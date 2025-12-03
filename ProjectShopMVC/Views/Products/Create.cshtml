@@ -1,0 +1,68 @@
+﻿@model ProjectShopMVC.Models.Product
+
+@{
+    ViewData["Title"] = "Thêm Sản Phẩm Mới";
+}
+
+<div class="container mt-4">
+    <h1 class="display-4 mb-4 text-primary">Thêm Sản Phẩm Mới</h1>
+    <hr />
+
+    <div class="row">
+        <div class="col-md-6">
+            <form asp-action="Create">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                @* Tên Sản Phẩm *@
+                <div class="mb-3">
+                    <label asp-for="Name" class="form-label fw-bold">Tên Sản Phẩm</label>
+                    <input asp-for="Name" class="form-control" />
+                    <span asp-validation-for="Name" class="text-danger"></span>
+                </div>
+
+                @* Mô Tả *@
+                <div class="mb-3">
+                    <label asp-for="Description" class="form-label fw-bold">Mô Tả</label>
+                    <textarea asp-for="Description" class="form-control" rows="3"></textarea>
+                    <span asp-validation-for="Description" class="text-danger"></span>
+                </div>
+
+                @* Giá *@
+                <div class="mb-3">
+                    <label asp-for="Price" class="form-label fw-bold">Giá (VNĐ)</label>
+                    <input asp-for="Price" type="number" step="0.01" class="form-control" />
+                    <span asp-validation-for="Price" class="text-danger"></span>
+                </div>
+
+                @* Danh Mục *@
+                <div class="mb-3">
+                    <label asp-for="CategoryId" class="form-label fw-bold">Danh Mục</label>
+                    <select asp-for="CategoryId" class="form-select" asp-items="ViewBag.CategoryId"></select>
+                    <span asp-validation-for="CategoryId" class="text-danger"></span>
+                </div>
+
+                @* Trạng Thái Hoạt Động *@
+                <div class="mb-3 form-check">
+                    <input class="form-check-input" asp-for="IsActive" />
+                    <label class="form-check-label fw-bold" asp-for="IsActive">Sản phẩm đang hoạt động?</label>
+                </div>
+
+                <div class="d-flex gap-2 mt-4">
+                    <button type="submit" class="btn btn-success btn-lg">
+                        <i class="bi bi-plus-circle"></i> Thêm Sản Phẩm
+                    </button>
+                    <a asp-action="Index" class="btn btn-outline-secondary btn-lg">
+                        <i class="bi bi-list"></i> Quay Lại Danh Sách
+                    </a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
+}
