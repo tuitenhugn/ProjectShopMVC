@@ -1,0 +1,42 @@
+﻿@model IEnumerable<ProjectShopMVC.Models.Category>
+@{
+    ViewData["Title"] = "Quản lý danh mục";
+}
+
+<h2>Quản lý danh mục</h2>
+
+<p>
+    <a asp-action="Create" class="btn btn-success">Thêm danh mục mới</a>
+</p>
+
+<table class="table table-bordered table-striped">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Name</th>
+            <th>Slug</th>
+            <th>Mô tả</th>
+            <th>Trạng thái</th>
+            <th>Ngày tạo</th>
+            <th>Hành động</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var cat in Model)
+        {
+            <tr>
+                <td>@cat.Id</td>
+                <td>@cat.Name</td>
+                <td>@cat.Slug</td>
+                <td>@cat.Description</td>
+                <td>@(cat.IsActive ? "Hoạt động" : "Không hoạt động")</td>
+                <td>@cat.CreatedAt.ToString("yyyy-MM-dd")</td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@cat.Id" class="btn btn-primary btn-sm">Sửa</a>
+                    <a asp-action="Delete" asp-route-id="@cat.Id" class="btn btn-danger btn-sm"
+                       onclick="return confirm('Bạn có chắc muốn xóa danh mục này?');">Xóa</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
